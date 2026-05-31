@@ -1,4 +1,4 @@
-# nvn-blog
+# docker-blog
 
 [![Repo](https://img.shields.io/badge/GitHub-docker--blog-181717?logo=github)](https://github.com/NvnNeha/docker-blog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NvnNeha/docker-blog/blob/main/LICENSE)
@@ -30,7 +30,7 @@ A Django-based personal blog where registered users can publish, edit, and delet
 ## Project layout
 
 ```
-nvn-blog/
+docker-blog/
 ├── manage.py
 ├── Procfile.tailwind          # runs django + tailwind together (honcho/foreman)
 ├── db.sqlite3                 # dev database
