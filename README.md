@@ -1,6 +1,7 @@
 # nvn-blog
 
 [![Repo](https://img.shields.io/badge/GitHub-future--blog-181717?logo=github)](https://github.com/NvnNeha/future-blog)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A Django-based personal blog where registered users can publish, edit, and delete posts, save posts for later, and leave comments. The UI is styled with Tailwind CSS via `django-tailwind`.
 
@@ -147,3 +148,7 @@ When `DEBUG=False`, the following are enabled automatically: HSTS, secure cookie
 - Post editing/deletion is restricted to the post's author via `AuthorRequiredMixin` (`LoginRequiredMixin` + `UserPassesTestMixin`).
 - Slugs are auto-deduplicated on create and edit (`-2`, `-3`, …) so duplicate titles don't crash.
 - Uploaded images land in `images/upload/` (the `MEDIA_ROOT`) and are served at `/images/` while `DEBUG` is on. In production, point your reverse proxy (or object storage) at `MEDIA_ROOT`.
+
+## License
+
+Released under the [MIT License](LICENSE).
