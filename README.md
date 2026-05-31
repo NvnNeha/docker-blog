@@ -1,7 +1,7 @@
 # nvn-blog
 
 [![Repo](https://img.shields.io/badge/GitHub-future--blog-181717?logo=github)](https://github.com/NvnNeha/future-blog)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NvnNeha/docker-blog/blob/main/LICENSE)
 
 A Django-based personal blog where registered users can publish, edit, and delete posts, save posts for later, and leave comments. The UI is styled with Tailwind CSS via `django-tailwind`.
 
