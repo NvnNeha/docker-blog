@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: blog
+      POSTGRES_USER: blog
+      POSTGRES_PASSWORD: blog
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blog -d blog"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Generate a real key for anything beyond local use:
+      #   python3 -c "import secrets; print(secrets.token_urlsafe(60))"
+      SECRET_KEY: local-dev-key-change-me-for-production
+      DEBUG: "False"
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      USE_S3: "False"
+      # Connect to the Postgres service above (settings switch to Postgres
+      # automatically once DB_NAME is set)
+      DB_NAME: blog
+      DB_USER: blog
+      DB_PASSWORD: blog
+      DB_HOST: db
+      DB_PORT: "5432"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

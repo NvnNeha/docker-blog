@@ -1,0 +1,26 @@
+# Local virtualenv — deps are installed fresh in the image
+venv/
+
+# Version control
+.git/
+.gitignore
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Secrets — pass these in at runtime with -e / --env-file instead
+.env
+
+# Editor / OS / tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+
+# Collected static is regenerated inside the image
+staticfiles/
+
+# Node deps if Tailwind sources are ever rebuilt
+theme/static_src/node_modules/
