@@ -126,6 +126,50 @@ honcho -f Procfile.tailwind start
 
 Then open http://127.0.0.1:8000.
 
+## Run with Docker
+
+A `Dockerfile` and `docker-compose.yml` are included for containerized runs. The image installs dependencies, collects static files (Tailwind CSS is pre-built into `theme/static`), runs migrations on start, and serves the app with gunicorn + WhiteNoise on port `8000`.
+
+### With Docker Compose (app + PostgreSQL)
+
+The simplest path — brings up the app and a Postgres database in one command:
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:8000. Create an admin user in another terminal:
+
+```bash
+docker compose exec web python manage.py createsuperuser
+```
+
+Useful commands:
+
+```bash
+docker compose up --build -d      # run in the background
+docker compose logs -f web        # follow app logs
+docker compose down               # stop
+docker compose down -v            # stop and wipe the Postgres volume
+```
+
+Database data persists in the `postgres_data` volume. The compose file ships throwaway dev credentials — change `SECRET_KEY` and the DB password before using it anywhere real.
+
+### With Docker only (SQLite)
+
+Build and run the image directly, without Postgres:
+
+```bash
+docker build -t docker-blog .
+
+docker run -p 8000:8000 \
+  -e SECRET_KEY="$(python3 -c 'import secrets; print(secrets.token_urlsafe(60))')" \
+  -e ALLOWED_HOSTS="localhost,127.0.0.1" \
+  docker-blog
+```
+
+`SECRET_KEY` and `ALLOWED_HOSTS` must be provided — settings reject the insecure default when `DEBUG=False`. With no `DB_*` env vars set, the app uses SQLite inside the container (writes are ephemeral unless you mount a volume).
+
 ## Deploying to production
 
 1. Provision a host (Railway / Render / Fly / a VPS) and set the env vars from `.env.example` — at minimum `SECRET_KEY`, `DEBUG=False`, `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`.
